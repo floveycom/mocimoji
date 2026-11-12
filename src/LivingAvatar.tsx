@@ -723,11 +723,10 @@ export const LivingAvatar = forwardRef<HTMLDivElement, LivingAvatarProps>(functi
             width: "100%",
             height: "100%",
             display: "block",
-            // Grounding shadow + a soft white outer glow, both as
-            // drop-shadows (not box-shadow) so they trace the mochi
+            // A drop-shadow (not box-shadow) so it traces the mochi
             // silhouette's actual alpha shape instead of a rectangular or
             // perfectly circular box.
-            filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.08)) drop-shadow(0 0 7px rgba(255,255,255,0.55))",
+            filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.08))",
           }}
         >
           <defs>
