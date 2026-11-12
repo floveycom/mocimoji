@@ -71,17 +71,17 @@ type ChatSide = "left" | "right";
 
 // A group chat, not a 1:1 — "you" is the only one on the right, everyone
 // else gets their own name + avatar on the left, same as a real group app.
-const GROUP_MEMBERS = ["nadia", "budi", "sari", "rafi", "tasya", "dimas"];
+const GROUP_MEMBERS = ["hana", "ren", "sakura", "sora", "mio", "riku", "citra"];
 
 const SAMPLE_CHAT: Array<{ author: string; text: string; side: ChatSide }> = [
-  { author: "nadia", text: "omg this is amazing!! ✨", side: "left" },
-  { author: "budi", text: "lol this is hilarious 😂", side: "left" },
+  { author: "hana", text: "omg this is amazing!! ✨", side: "left" },
+  { author: "ren", text: "lol this is hilarious 😂", side: "left" },
   { author: "you", text: "right?? I can't stop staring at it", side: "right" },
-  { author: "sari", text: "I love this so much ❤️", side: "left" },
-  { author: "rafi", text: "wow, I didn't expect it to be this good", side: "left" },
+  { author: "sakura", text: "I love this so much ❤️", side: "left" },
+  { author: "sora", text: "wow, I didn't expect it to be this good", side: "left" },
   { author: "you", text: "same, it reacts to literally everything", side: "right" },
-  { author: "tasya", text: "thanks so much for making this 🙏", side: "left" },
-  { author: "dimas", text: "aww it's so cute", side: "left" },
+  { author: "mio", text: "thanks so much for making this 🙏", side: "left" },
+  { author: "riku", text: "aww it's so cute", side: "left" },
 ];
 
 // A real community for the closing section — no `expression` prop, so
@@ -266,9 +266,9 @@ export default function App() {
 
           <div className="hero-seed bob">
             <div className="orbit-d">
-              <LivingAvatar seed="budi" expression="sleepy" paletteIndex={12} className="avatar" />
+              <LivingAvatar seed="ren" expression="sleepy" paletteIndex={12} className="avatar" />
             </div>
-            <span className="hero-seed-label mono">seed: "budi"</span>
+            <span className="hero-seed-label mono">seed: "ren"</span>
           </div>
 
           <div className="hero-thanks bob2">
@@ -387,7 +387,7 @@ export default function App() {
             </div>
             <div>
               <div className="chat-card-title">mocimoji fans</div>
-              <div className="chat-card-sub">{GROUP_MEMBERS.length + 1} members</div>
+              <div className="chat-card-sub">{GROUP_MEMBERS.length} members · 3 online</div>
             </div>
           </div>
           <div className="chat-card-body">

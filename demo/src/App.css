@@ -674,7 +674,7 @@ a:hover {
 .chat-card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
   padding: 18px 22px;
   border-bottom: 1px solid var(--bg-tint);
 }
@@ -689,10 +689,12 @@ a:hover {
   margin-right: -8px;
   border-radius: 50%;
   border: 2px solid #fff;
+  /* The avatar's own silhouette isn't a perfect circle — clip it to one
+     here so overlapping faces in this tight a row line up cleanly. */
+  overflow: hidden;
 }
 
 .chat-card-title {
-  margin-left: 14px;
   font-weight: 600;
   font-size: 15px;
 }
