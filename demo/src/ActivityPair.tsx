@@ -39,14 +39,21 @@ export function ActivityPair({ name }: { name: string }) {
   }, []);
 
   return (
-    <div className="shelf-item">
+    <button type="button" className="activity-card" onClick={play}>
       <div className="activity-pair">
-        <LivingAvatar ref={aRef} seed={`act-${name}-a`} className="avatar avatar-md" />
-        <LivingAvatar ref={bRef} seed={`act-${name}-b`} className="avatar avatar-md" />
+        <div className="activity-face">
+          <LivingAvatar ref={aRef} seed={`act-${name}-a`} className="avatar" />
+        </div>
+        <div className="activity-face">
+          <LivingAvatar ref={bRef} seed={`act-${name}-b`} className="avatar" />
+        </div>
       </div>
-      <button type="button" className="activity-replay" onClick={play}>
-        ▶ {LABELS[name] ?? name}
-      </button>
-    </div>
+      <span className="activity-card-label">
+        <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+          <path d="M2 1l7 4-7 4z" fill="currentColor" />
+        </svg>
+        {LABELS[name] ?? name}
+      </span>
+    </button>
   );
 }
