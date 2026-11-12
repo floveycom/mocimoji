@@ -18,6 +18,27 @@
   ],
   "sideEffects": false,
   "license": "MIT",
+  "author": "floveycom",
+  "homepage": "https://mocimoji.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/floveycom/mocimoji.git"
+  },
+  "bugs": {
+    "url": "https://github.com/floveycom/mocimoji/issues"
+  },
+  "keywords": [
+    "avatar",
+    "avatars",
+    "generative",
+    "procedural",
+    "emoji",
+    "emotion",
+    "react",
+    "svg",
+    "chat",
+    "community"
+  ],
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
