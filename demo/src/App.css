@@ -816,6 +816,18 @@ a:hover {
   font-size: 17px;
 }
 
+.playing-pill {
+  padding: 10px 16px;
+  border: 1px solid var(--dark-line);
+  border-radius: 999px;
+  font-size: 14px;
+  color: #d8d8e0;
+  white-space: nowrap;
+}
+.playing-pill strong {
+  color: #fff;
+}
+
 .interactions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -834,9 +846,15 @@ a:hover {
   color: #e8e8ee;
   font: inherit;
   cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 .activity-card:hover {
   border-color: #4a4a54;
+}
+.activity-card.is-active {
+  background: var(--bg);
+  color: var(--ink);
+  border-color: var(--bg);
 }
 
 .activity-pair {

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { LivingAvatar, ALL_EXPRESSIONS, SCENARIO_NAMES, PALETTES, detectEmotion, type Expression } from "../../src/index";
-import { ActivityPair } from "./ActivityPair";
+import { ActivityPair, ACTIVITY_LABELS } from "./ActivityPair";
 import "./App.css";
 
 // How close the cursor needs to be (in px) to an avatar's center before
@@ -166,6 +166,10 @@ function CopyInstall({ onDark = false }: { onDark?: boolean }) {
 export default function App() {
   const [liveText, setLiveText] = useState("");
   const [heroIdx, setHeroIdx] = useState(0);
+  // Whichever activity most recently started playing — set by either a
+  // card's own auto-trigger on mount or a manual click. Stays put (no
+  // auto-revert) until a different one takes over.
+  const [activeActivity, setActiveActivity] = useState<string | null>(null);
 
   useEffect(() => {
     const id = setInterval(() => setHeroIdx((i) => (i + 1) % HERO_CYCLE.length), 1800);
@@ -421,10 +425,13 @@ export default function App() {
                 automatically — or pick one to trigger it yourself.
               </p>
             </div>
+            <div className="playing-pill">
+              Playing: <strong>{activeActivity ? ACTIVITY_LABELS[activeActivity] ?? activeActivity : "—"}</strong>
+            </div>
           </div>
           <div className="interactions-grid">
             {SCENARIO_NAMES.map((name) => (
-              <ActivityPair key={name} name={name} />
+              <ActivityPair key={name} name={name} active={activeActivity === name} onActivate={setActiveActivity} />
             ))}
           </div>
         </div>

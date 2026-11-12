@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { LivingAvatar, triggerActivity } from "../../src/index";
 
-const LABELS: Record<string, string> = {
+export const ACTIVITY_LABELS: Record<string, string> = {
   fight: "fight",
   hug: "hug",
   highFive: "high five",
@@ -24,12 +24,19 @@ const LABELS: Record<string, string> = {
   bonk: "bonk",
 };
 
-export function ActivityPair({ name }: { name: string }) {
+interface ActivityPairProps {
+  name: string;
+  active: boolean;
+  onActivate: (name: string) => void;
+}
+
+export function ActivityPair({ name, active, onActivate }: ActivityPairProps) {
   const aRef = useRef<HTMLDivElement>(null);
   const bRef = useRef<HTMLDivElement>(null);
 
   const play = () => {
-    triggerActivity(name, aRef.current, bRef.current);
+    const started = triggerActivity(name, aRef.current, bRef.current);
+    if (started) onActivate(name);
   };
 
   useEffect(() => {
@@ -39,7 +46,7 @@ export function ActivityPair({ name }: { name: string }) {
   }, []);
 
   return (
-    <button type="button" className="activity-card" onClick={play}>
+    <button type="button" className={`activity-card${active ? " is-active" : ""}`} onClick={play} aria-pressed={active}>
       <div className="activity-pair">
         <div className="activity-face">
           <LivingAvatar ref={aRef} seed={`act-${name}-a`} className="avatar" />
@@ -52,7 +59,7 @@ export function ActivityPair({ name }: { name: string }) {
         <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
           <path d="M2 1l7 4-7 4z" fill="currentColor" />
         </svg>
-        {LABELS[name] ?? name}
+        {ACTIVITY_LABELS[name] ?? name}
       </span>
     </button>
   );
