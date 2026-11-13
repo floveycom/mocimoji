@@ -67,6 +67,32 @@ function CommunityWall({ seeds }: { seeds: string[] }) {
   );
 }
 
+// Mobile swaps the cursor-tracking wall (no cursor on touch) for 4 rows
+// that loop left-to-right on their own, each at a different speed so the
+// whole thing doesn't read as one mechanical block.
+const MARQUEE_ROW_DURATIONS = [26, 34, 22, 30];
+
+function CommunityMarquee({ seeds }: { seeds: string[] }) {
+  const rows: string[][] = [[], [], [], []];
+  seeds.forEach((seed, i) => rows[i % 4].push(seed));
+
+  return (
+    <div className="community-marquee">
+      {rows.map((row, i) => (
+        <div className="marquee-row" key={i}>
+          <div className="marquee-track" style={{ animationDuration: `${MARQUEE_ROW_DURATIONS[i % MARQUEE_ROW_DURATIONS.length]}s` }}>
+            {[...row, ...row].map((seed, j) => (
+              <div className="community-item" key={`${seed}-${j}`} aria-hidden={j >= row.length}>
+                <LivingAvatar seed={seed} className="avatar" />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 type ChatSide = "left" | "right";
 
 // A group chat, not a 1:1 — "you" is the only one on the right, everyone
@@ -155,7 +181,7 @@ function CopyInstall({ onDark = false }: { onDark?: boolean }) {
 
   return (
     <button type="button" className={`install-pill mono${onDark ? " on-dark" : ""}`} onClick={copy}>
-      <span>
+      <span className="install-cmd">
         <span className="install-prompt">$</span> {command}
       </span>
       <span className="install-copy">{copied ? "COPIED" : "COPY"}</span>
@@ -170,6 +196,7 @@ export default function App() {
   // card's own auto-trigger on mount or a manual click. Stays put (no
   // auto-revert) until a different one takes over.
   const [activeActivity, setActiveActivity] = useState<string | null>(null);
+  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => setHeroIdx((i) => (i + 1) % HERO_CYCLE.length), 1800);
@@ -187,12 +214,25 @@ export default function App() {
           </div>
           <span className="disp nav-logo">mocimoji</span>
         </a>
-        <div className="nav-links">
-          <a href="#demo" className="nav-link">Demo</a>
-          <a href="#interactions" className="nav-link">Interactions</a>
-          <a href="#expressions" className="nav-link">Expressions</a>
-          <a href="#usage" className="nav-link">Docs</a>
+        <div className="nav-right">
+          <div className={`nav-links${navOpen ? " is-open" : ""}`}>
+            <a href="#demo" className="nav-link" onClick={() => setNavOpen(false)}>Demo</a>
+            <a href="#interactions" className="nav-link" onClick={() => setNavOpen(false)}>Interactions</a>
+            <a href="#expressions" className="nav-link" onClick={() => setNavOpen(false)}>Expressions</a>
+            <a href="#usage" className="nav-link" onClick={() => setNavOpen(false)}>Docs</a>
+          </div>
           <span className="nav-tag">MIT licensed</span>
+          <button
+            type="button"
+            className="nav-burger"
+            aria-label="Menu"
+            aria-expanded={navOpen}
+            onClick={() => setNavOpen((v) => !v)}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+              {navOpen ? <path d="M6 6l12 12M18 6l-12 12" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+            </svg>
+          </button>
         </div>
       </nav>
 
@@ -469,6 +509,7 @@ export default function App() {
             <p>Every one of these is fully alive — idle, blinking, reacting to whoever's standing next to it.</p>
           </div>
           <CommunityWall seeds={COMMUNITY} />
+          <CommunityMarquee seeds={COMMUNITY} />
         </div>
       </section>
 

@@ -60,6 +60,7 @@ a:hover {
 /* --- Nav --- */
 
 .nav {
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px 24px;
@@ -68,6 +69,25 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  color: var(--ink);
+  cursor: pointer;
 }
 
 .nav-brand {
@@ -104,7 +124,6 @@ a:hover {
 }
 
 .nav-tag {
-  margin-left: 8px;
   padding: 6px 12px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
@@ -189,6 +208,12 @@ a:hover {
   border-radius: 14px;
   font-size: 15px;
   cursor: pointer;
+  max-width: 100%;
+}
+
+.install-cmd {
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .install-pill.on-dark {
@@ -1000,6 +1025,49 @@ a:hover {
 .community-item {
   width: 52px;
   height: 52px;
+  flex-shrink: 0;
+}
+
+/* Hidden on desktop — the cursor-tracking wall above is shown instead.
+   Swapped in for mobile (no cursor to track) in the media query below. */
+.community-marquee {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.marquee-row {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 10px;
+  animation-name: marquee-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* The track is the row's seeds duplicated once, so -50% is exactly
+       one full set — the loop point is seamless. */
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
 }
 
 /* --- Final CTA --- */
@@ -1113,5 +1181,64 @@ a:hover {
 @media (max-width: 640px) {
   .hero-scene {
     height: 420px;
+  }
+
+  .nav-burger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 20px;
+    right: 20px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 8px;
+    box-shadow: 0 16px 40px rgba(20, 20, 22, 0.1);
+    z-index: 20;
+  }
+  .nav-links.is-open {
+    display: flex;
+  }
+  .nav-links .nav-link {
+    padding: 12px 16px;
+  }
+
+  .interactions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .community-wall {
+    display: none;
+  }
+  .community-marquee {
+    display: flex;
+  }
+
+  .install-pill {
+    font-size: 13px;
+    gap: 10px;
+    padding: 0 6px 0 16px;
+  }
+  .install-copy {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .cta-card {
+    padding: 56px 24px;
+  }
+  .cta-faces {
+    gap: 8px;
+  }
+  .cta-face {
+    width: 48px;
+    height: 48px;
   }
 }
